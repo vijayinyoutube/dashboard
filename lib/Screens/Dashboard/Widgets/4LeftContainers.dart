@@ -1,66 +1,72 @@
-import 'package:dashboard/Declarations/Global/GlobalDeclar.dart';
+import 'package:dashboard/Declarations/DashboardScreen.dart';
 import 'package:dashboard/Declarations/Images/ImageFiles.dart';
 import 'package:dashboard/General%20Widgets/GWidgets.dart';
 import 'package:flutter/material.dart';
 
-Widget buildWorkouts(BuildContext context) => Container(
+Widget buildLeftContainer(BuildContext context, int colorIndex, String title,
+        String subTitle, int imageIndex) =>
+    Container(
       height: 150,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          buildContainer(context),
+          buildContainer(context, colorIndex, title, subTitle, imageIndex),
         ],
       ),
     );
 
-Widget buildContainer(BuildContext context) => Positioned(
-      left: 10,
+Widget buildContainer(BuildContext context, int colorIndex, String title,
+        String subTitle, int imageIndex) =>
+    Positioned(
+      right: 10,
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: 150,
         decoration: BoxDecoration(
-          color: workoutContainerColor,
+          color: dashboardColors[colorIndex],
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15.00),
-            bottomLeft: Radius.circular(15.00),
+            topRight: Radius.circular(15.00),
+            bottomRight: Radius.circular(15.00),
           ),
         ),
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            buildImage(),
-            buildPreview(),
-            buildText(context),
+            buildImage(imageIndex),
+            buildPreview(colorIndex, title),
+            buildText(context, subTitle),
           ],
         ),
       ),
     );
 
-Widget buildImage() => Positioned(
+Widget buildImage(int imageIndex) => Positioned(
       top: -45,
       bottom: 10,
-      left: -20,
+      right: 0,
       child: Container(
+        width: 125,
+        height: 125,
         child: Image.asset(
-          dashboardImages[1],
+          dashboardImages[imageIndex],
           fit: BoxFit.contain,
         ),
       ),
     );
 
-Widget buildPreview() => Positioned(
+Widget buildPreview(int colorIndex, String title) => Positioned(
       top: -25,
-      right: 30,
+      left: 30,
       child: Container(
         height: 50,
         width: 175,
         decoration: BoxDecoration(
-          color: workoutPreviewColor,
+          color: dashboardColors[colorIndex + 1],
           borderRadius: BorderRadius.circular(15.00),
         ),
         child: Center(
           child: Text(
-            "Workouts",
+            title,
             style: TextStyle(
                 color: Colors.white,
                 fontSize: 27.00,
@@ -70,16 +76,17 @@ Widget buildPreview() => Positioned(
       ),
     );
 
-Widget buildText(BuildContext context) => Row(
-      mainAxisAlignment: MainAxisAlignment.end,
+Widget buildText(BuildContext context, String subTitle) => Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        widthSpacer(50.00),
         Center(
           child: Container(
             width: MediaQuery.of(context).size.width / 2,
             child: Text(
-              "Regular Workouts",
-              textAlign: TextAlign.end,
+              subTitle,
+              textAlign: TextAlign.start,
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 27.00,
@@ -87,6 +94,5 @@ Widget buildText(BuildContext context) => Row(
             ),
           ),
         ),
-        widthSpacer(60.00),
       ],
     );
