@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter/material.dart';
 
 Color workoutContainerColor = HexColor("#FFEDAE");
 Color workoutPreviewColor = HexColor("#FBD85B");
